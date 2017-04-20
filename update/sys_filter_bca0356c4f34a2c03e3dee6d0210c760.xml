@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update sys_domain="global" table="sys_filter">
+    <sys_filter action="INSERT_OR_UPDATE">
+        <filter table="incident">sys_id=18248acf4f2c6e803e3dee6d0210c7d1^EQ<item endquery="false" field="sys_id" goto="false" newquery="false" operator="=" or="false" value="18248acf4f2c6e803e3dee6d0210c7d1"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter>
+        <group/>
+        <last_used>2016-07-20 14:07:42</last_used>
+        <mobile>true</mobile>
+        <roles/>
+        <sys_class_name>sys_filter</sys_class_name>
+        <sys_created_by>SKP</sys_created_by>
+        <sys_created_on>2016-07-20 14:07:42</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_domain>global</sys_domain>
+        <sys_id>bca0356c4f34a2c03e3dee6d0210c760</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>mobile</sys_name>
+        <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+        <sys_update_name>sys_filter_bca0356c4f34a2c03e3dee6d0210c760</sys_update_name>
+        <sys_updated_by>SKP</sys_updated_by>
+        <sys_updated_on>2016-07-20 14:07:42</sys_updated_on>
+        <table>incident</table>
+        <title>mobile</title>
+        <user display_value="Shanney Persaud">cab14a100a0a3c1c01ec2a8d2a18b2e9</user>
+    </sys_filter>
+</record_update>

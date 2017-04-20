@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="PinPad Survey Detail" max_length="40" name="x_kasp_it_survey_pinpad_survey_detail" type="collection">
+        <element label="It total # of PP in use same as listed" max_length="1000" name="comments_1" type="string"/>
+        <element label="Number of miStore devices in use" max_length="1000" name="comments_2" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Condition of miStore devices" max_length="1000" name="comments_3" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="If Answered No" max_length="1000" name="comments_4" type="string"/>
+        <element label="Device" max_length="32" name="device" reference="alm_hardware" type="reference"/>
+        <element label="Parent" max_length="32" name="parent" reference="x_kasp_it_survey_pinpad_survey_header" type="reference"/>
+        <element label="Verify Serial # Matches" max_length="40" name="question_0" type="boolean"/>
+        <element label="Examine Condition, Everything OK" max_length="40" name="question_1" type="boolean"/>
+        <element label="Manufacturer's Seal, No Peeling Or Tampering" max_length="40" name="question_2" type="boolean"/>
+        <element label="Connections to Pinpad, No Loose Wires, Broken Connections, Odd Attachments" max_length="40" name="question_3" type="boolean"/>
+        <element label="Number Of Pinpad Connections 3?" max_length="40" name="question_4" type="boolean"/>
+        <element label="Question 6 Answer" max_length="40" name="question_6_answer" type="boolean"/>
+        <element label="Store" max_length="32" name="store" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="parent"/>
+        </index>
+        <index name="index2">
+            <element name="store"/>
+        </index>
+        <index name="index3">
+            <element name="device"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[var pinpadSurveyApp = angular.module('pinpadSurvey', []);
+
+pinpadSurveyApp.controller('pinpadSurveyController', [
+'$scope',
+'$http',
+function($scope, $http) {
+	
+	$scope.user = $("#user_sys_id").html();
+	$scope.first = $("#user_first_name").html();
+	
+	
+	if($scope.first.toLowerCase() != 'store'){
+		$('#page').html('<div class="box"><div class="box-head text-center row"><h4 class="thanks">Sorry!</h4></div><div class="box-body text-center row"><p class="message">This survey can only be submitted by stores</p></div></div>');
+		$('#page').css('width','100%');
+		return;
+	}
+	
+	$scope.assets = [];
+	$scope.assetNum = 0;
+	$scope.isLoaded = false;
+	$scope.loading = true;
+	
+	$scope.name = "";
+	$scope.pos = "";
+	
+	$scope.url = '/api/now/table/';
+	$scope.asset_table = 'alm_asset';
+	$scope.model_table = 'cmdb_model_category';
+	
+	
+	$scope.model_cat_ids = '';
+	
+	$http.defaults.headers.common.Accept = "application/json";
+	
+	
+	$scope.lightChoice = function($event){
+		
+		$($event.target).css('background-color','#83bfff').css('color','white').addClass('active').siblings().css('background-color','white').css('color','black').removeClass('active');
+		
+	};
+	
+	$("#submit_work").click(function(){
+		console.log("Logging "+$("#name_input").val());
+		if($("#name_input").val() == ""){
+			alert('Please enter your Name');
+			return;
+		}
+		if($("#pos_input").val() == ""){
+			alert('Please enter your Position');
+			return;
+		}
+		
+		$scope.name = $("#name_input").val();
+		$scope.pos = $("#pos_input").val();
+		
+		$scope.submitSurvey();
+	});
+
+	
+	$scope.updateRecordList = function() {
+		$http({
+			method: 'GET',
+			url: $scope.url+ $scope.asset_table + "?sysparm_query=assigned_to=" + $scope.user
+			+"^model_category=96946ddf50e4c1006499eac314d73272"//Pinpad
+			//+"^ORmodel_category=97957b68c88586009fd521cf6a6e49e2"//iPod Touch
+			+"^install_status=1",//in use
+			headers: {
+				'X-UserToken': window.g_ck.toString()
+			}
+		}).
+		success( function(data, status) {
+			$scope.loading = false;
+			$scope.isLoaded = true;
+			var model_cat_ids = '';
+			var asset = {};
+			console.log(data);
+			for(var i = 0; i < data.result.length; i++){
+				asset =
+				{
+					sys_id: data.result[i].sys_id,
+					serial_number: data.result[i].serial_number,
+					model_category_id: data.result[i].model_category.value,
+					order: i,
+					model_category_name: ""
+				};
+				
+				if(model_cat_ids == ''){
+					model_cat_ids = ""+asset.model_category_id;
+				}else{
+					model_cat_ids += "^ORsys_id="+asset.model_category_id;
+				}
+				
+				$scope.assets.push(asset);
+			}
+			
+			
+			$scope.assetNum = $scope.assets.length;
+			$('#page').css('width',($scope.assetNum * 150 + 200) + "px");
+			
+			$scope.getModelCatDisplayName(model_cat_ids);
+			
+			
+		}).
+		error ( function(data, status) {
+			$scope.assets = [{"serial_number": "Error fetching list"}];
+		});
+		
+	};
+	
+	$scope.getModelCatDisplayName = function(model_cat_ids){
+		$http({
+			method: 'GET',
+			url: $scope.url + $scope.model_table  + "?sysparm_query=sys_id="+model_cat_ids,
+			headers: {
+				'X-UserToken': window.g_ck.toString()
+			}
+		}).
+		success( function(model_data, req_status) {
+			
+			for(var i = 0; i < $scope.assets.length; i++){
+				
+				for(var j = 0; j < model_data.result.length; j++){
+					
+					if($scope.assets[i].model_category_id == model_data.result[j].sys_id){
+						$scope.assets[i].model_category_name = model_data.result[j].name;
+					}
+				}
+			}
+		}).
+		error ( function(model_data, req_status) {
+			console.log("ERROR getting model");
+			for(var i = 0; i < $scope.assets.length; i++){
+				$scope.assets[i].model_category_name = "No Model Name found";
+			}
+		});
+		
+	};
+	
+	$scope.submitSurvey = function(){
+		
+		var submit = $scope.checkMandatory();
+		if(submit == ""){
+			$scope.sendHeaderReponse($scope.user);
+		}else{
+			alert("Please answer all questions for device " + submit);
+		}
+		
+	};
+	
+	
+	$scope.checkMandatory = function(){
+		
+		var currentClass = "";
+		var haveButton = "";
+		for(var i = 0; i < $scope.assets.length;i++){
+			haveButton = "#asset_" + $scope.assets[i].order;
+			
+			if($(haveButton).text() == "undo"){
+				console.log("Dont have " + $scope.assets[i].serial_number);
+				continue;
+			}
+			
+			currentClass = ".asset_" + $scope.assets[i].order+"_group";
+			if(!$scope.checkButtonGroup(currentClass)){
+				return $scope.assets[i].serial_number;
+			}
+		}
+		
+		return "";
+		
+	};
+	
+	$scope.checkButtonGroup = function(className){
+		var children = [];
+		var submit = true;
+		
+		$(className).each(function(i, obj){
+			
+			children = $(obj).children('.active');
+			
+			if(children.length != 1){
+				submit = false;
+				return;
+			}
+		});
+		return submit;
+	};
+	
+	$scope.sendHeaderReponse = function(storeSysId){
+		$http({
+			method: 'POST',
+			url: $scope.url + "x_kasp_it_survey_pinpad_survey_header?sysparm_fields=sys_id",
+			headers: {
+				'X-UserToken': window.g_ck.toString(),
+				'Accept' : 'application/json',
+				'Content-type': 'application/json'
+			},
+			data: {
+				store:storeSysId,
+				name: $scope.name,
+				position: $scope.pos
+			}
+		}).
+		success( function(data, req_status) {
+			console.log(data);
+			$scope.createDetail(data.result.sys_id);
+			$('#page').html('<div class="box"><div class="box-head text-center row"><h4 class="thanks">Thank you for your reponse!</h4></div><div class="box-body text-center row"><p class="message">Your responses have been submitted</p></div></div>');
+			$('#page').css('width','100%');
+			
+			$('.modal-backdrop.in').css('opacity','0');
+		}).
+		error ( function(model_data, req_status) {
+			
+		});
+	};
+	
+	
+	$scope.createDetail = function(parent){
+		var currentClass = "";
+		var haveButton = "";
+		var response;
+		var httpResponse;
+		for(var i = 0; i < $scope.assets.length;i++){
+			response = [];
+			httpResponse = {};
+			
+			haveButton = "#asset_" + $scope.assets[i].order;
+			console.log("button >> "+ haveButton);
+			
+			if($(haveButton).text() == "undo"){
+				console.log("Dont have " + $scope.assets[i].serial_number);
+				$scope.sendDontHave($scope.assets[i].sys_id,parent);
+				continue;
+			}
+			
+			currentClass = ".asset_" + $scope.assets[i].order+"_group";
+			response = $scope.buildResponse(currentClass);
+			console.log(response);
+			
+			if(response == null){
+				alert("Please answer all questions");
+				return;
+			}else{
+				for(var j = 0; j < response.length; j++){
+					
+					httpResponse["question_"+j] = response[j];
+				}
+				httpResponse["comments_1"] = $("#comments1").val();
+				httpResponse["comments_2"] = $("#comments2").val();
+				httpResponse["comments_3"] = $("#comments3").val();
+				httpResponse["comments_4"] = $("#comments4").val();
+				
+				httpResponse["device"] = $scope.assets[i].sys_id;
+				httpResponse["store"] = $scope.user;
+				httpResponse["parent"] = parent;
+				$scope.sendDetailResponse(httpResponse);
+			}
+			
+		}
+	};
+	
+	$scope.buildResponse = function(className){
+		
+		var response;
+		var children;
+		var responses = [];
+		var ans;
+		
+		$(className).each(function(i, obj){
+			
+			children = $(obj).children('.active');
+			
+			ans = $(children[0]).html();
+			if(ans == "Yes"){
+				response = true;
+			}else{
+				response = false;
+			}
+			responses.push(response);
+			
+		});
+		return responses;
+	};
+	
+	$scope.sendDetailResponse = function(httpResponse){
+		$http({
+			method: 'POST',
+			url: $scope.url + "x_kasp_it_survey_pinpad_survey_detail",
+			headers: {
+				'X-UserToken': window.g_ck.toString(),
+				'Accept' : 'application/json',
+				'Content-type': 'application/json'
+			},
+			data: httpResponse
+		}).
+		success( function(data, req_status) {
+			console.log("Good");
+		}).
+		error ( function(model_data, req_status) {
+			
+		});
+	};
+	
+	$scope.sendDontHave = function(assetSysId, parent){
+		$http({
+			method: 'POST',
+			url: $scope.url + "x_kasp_it_survey_pinpad_survey_detail",
+			headers: {
+				'X-UserToken': window.g_ck.toString(),
+				'Accept' : 'application/json',
+				'Content-type': 'application/json'
+			},
+			data: {
+				store: $scope.user,
+				device: assetSysId,
+				parent: parent,
+				comments_1: "Store Does Not Have This Asset"
+			}
+		}).
+		success( function(data, req_status) {
+			console.log("Good");
+		}).
+		error ( function(model_data, req_status) {
+			
+		});
+	};
+	
+	$scope.dontHave = function($event){
+		
+		var id = $event.target.id;
+		if($("#"+id).html() == "undo"){
+			$("#"+id).css("background-color","#BB1E1E");
+			$("#"+id).html("Don't have this");
+			
+			$("."+id).each(function(i,obj){
+				if($(obj).hasClass("asset_cell")){
+					$(obj).css("background-color","#12950D").css("color","white");
+				}else{
+					$(obj).css("background-color","white");
+				}
+				
+				$(obj).prop("disabled",false);
+			});
+		}else{
+			$("#"+id).css("background-color","#53c043");
+			$("#"+id).html("undo");
+			
+			$("."+id).each(function(i,obj){
+				$(obj).css("background-color","#DADADA").removeClass("active").css("color","black");
+				$(obj).prop("disabled",true);
+			});
+		}
+		
+	};
+	
+	
+	$scope.updateRecordList();
+	
+}]);
+]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_kasp_it_survey_pinpad_monthly_survey.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<head>
+		
+		<g:requires name="my_jquery_min.jsdbx"/>
+		<g:requires name="my_jquery_ui_min.jsdbx"/>
+		<g:requires name="my_angular_min.jsdbx"/>
+		
+		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
+		
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap.min.js"></script>
+		
+		<style>
+			
+			#page{
+				position: absolute;
+				top:0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				margin: auto;
+			}
+			
+			#top_message{
+				font-weight:bold;
+			}
+			
+			.modal-header{
+				background-color: #12950D;
+				color:white;
+			}
+			#close_modal{
+				background-color:white;
+				opacity: 1;
+			}
+			
+			.box{
+
+				margin: 50px 200px 0px 200px; 
+				border-style:solid;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				border-color: #12950D;
+				overflow:hidden;
+
+			}
+
+			.box-head{
+				height: 50px;
+				background-color: #12950D;
+				border-color: #12950D;
+				vertical-align: top;
+
+			}
+
+			.box-body{
+				padding: 20px 0px 20px 0px;
+			}
+
+
+			.thanks{
+				font-family:"Calibri";
+				font-size:30px;
+				font-style: italic;
+				color: white;
+
+			}
+
+			.message{
+				font-family:"Calibri";
+				font-size:18px;
+				font-weight:bold;
+
+			}
+
+			table{
+				
+				border-collapse:collapse;
+				width:100%;
+				margin:auto;
+			}
+
+			td{
+				border: 1px solid black;
+				font-family:Calibri;
+				font-size: 14px;
+				padding:0px 5px 0px 5px;
+				font-weight: bold;
+				
+			}
+
+			th{
+				background-color: #12950D;
+				color:white;
+				text-align: left;
+				font-family:Calibri;
+				font-size: 14px;
+				font-weight: bold;
+				border-color:black;
+			}
+			
+			.question_cell{
+				text-align: left;
+				background-color:#EEEEEE;
+				width: 200px;
+				min-width: 200px;
+				max-width: 200px;
+			}
+			
+			#header{
+				font-size:16px;
+				background-color:#12950D;
+				color:white;
+				padding
+			}
+			
+			.yes_no_cell{
+				padding: 10px 10px 10px 10px;
+				text-align: center;
+				width: 100px;
+			}
+			
+			.asset_cell{
+				text-align: center;
+				width: 200px;
+				min-width: 200px;
+				max-width: 200px;
+				white-space: nowrap;
+				background-color:#12950D;
+				color: white;
+			}
+			
+			
+			.comment_cell{
+				padding:0;
+			}
+			
+			.input_commnet{
+				border-sizing: border-box;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.chosen{
+				background-color: #83bfff;
+				color:white;
+			}
+			
+			.submitButton{
+				margin-top:10px;
+			}
+			
+			.dont{
+				color:white;
+				background-color:#BB1E1E;
+				font-weight:bold;
+				height:20px;
+				padding: 0 0.2em 0 0.1em;
+			}
+			
+			#user_sys_id{
+				visibility: hidden;
+			}
+			#user_first_name{
+				visibility: hidden;
+			}
+			@media only screen 
+				and (min-device-width : 768px) 
+				and (max-device-width : 1024px)  { 
+			
+				#submitButton{
+					background-color:#87d37c;
+					color:white;
+					border-radius:5px;
+					height:80px;
+					width:150px;
+					font-size:16px;
+					margin-left:400px;
+				}
+			
+				#page{
+
+					overflow:scroll;
+				}
+			
+				.btn-default{
+					margin: 0 0 0 0;
+					background-color:white;
+					height: 40px;
+					width:50px;
+					color:black;
+					border-radius:5px;
+				}
+			
+				.yes_no_cell{
+					padding:5px 0 5px 0;
+					
+				}
+			    
+				.box{
+
+					margin: 0 0 0 0;
+				}
+				.box-head{
+					text-align:center;
+
+				}
+
+				.box-body{
+					text-align:center;
+				}
+			
+				.dont{
+					color:white;
+					border-color:white;
+					background-color:#BB1E1E;
+					font-weight:bold;
+					height:2em;
+					width: 8em;
+					padding: 0 0.2em 0 0.1em;
+				}
+			
+			
+		</style>
+		
+	</head>
+	<g2:evaluate var="jvar_last" jelly="true">
+		var user = gs.getUser();
+		var userID = gs.getUserID();
+		var first = user.getFirstName();
+		var last = user.getLastName();
+	</g2:evaluate>
+	
+	<body ng-app="pinpadSurvey" >
+		<div ng-controller="pinpadSurveyController" ng-show="isLoaded" id="page">
+			
+				
+			<span id="user_sys_id" visible="false;">$[userID]</span>
+			<span id="user_first_name" visible="false;">$[first]</span>
+			<p id="top_message">For directions on how to inspect the payment devices, please reference the Payment Device Verification policy within the ShopTalk Policy $[AMP] Procedures folder.</p>
+			
+			<table id="asset_table">
+				<thead>
+					<tr>
+						<th colspan="100%">Pin Pad Device Inspection Store $[last]</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="question_cell" id="header">
+							<p>
+							As part of our monthly PinPad device inspection, 
+							please review the following questions and VERIFY for each
+							payment device in your store.
+							</p>
+						</td>
+						<td ng-repeat='asset in assets' class="asset_cell asset_{{asset.order}}" >
+							<p>S/N {{asset.serial_number}}</p>
+							<p>{{asset.model_category_name}}</p>
+							<p><button id="asset_{{asset.order}}" class='btn btn-default dont' ng-click="dontHave($event)">Don't have this?</button></p>
+						</td>
+					</tr>
+					<tr>
+						<td id="question1" class="question_cell">
+							Verify that the serial number printed on the label matches the 
+							serial number above.
+							
+						</td>
+						<td ng-repeat='asset in assets' class="yes_no_cell asset_{{asset.order}}">
+							<div class='btn-group asset_{{asset.order}}_group'>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">Yes</button>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">No</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="question2" class="question_cell">
+							Examine general condition of the devices.  Look for additional marks or scratches, 
+							especially around the seams. Is the condition of the device OK? 
+						</td>
+						<td ng-repeat='asset in assets' class="yes_no_cell asset_{{asset.order}}">
+							<div class='btn-group asset_{{asset.order}}_group'>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">Yes</button>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">No</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="question3" class="question_cell">
+							Manufacturer's security seal and labels are present, with no 
+							signs of peeling or tampering?
+						</td>
+						<td ng-repeat='asset in assets' class="yes_no_cell asset_{{asset.order}}">
+							<div class='btn-group asset_{{asset.order}}_group'>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">Yes</button>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">No</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="question4" class="question_cell">
+							Are the Pin Pad's connections like those pictured in the policy with no loose wires or broken connectors?
+						</td>
+						<td ng-repeat='asset in assets' class="yes_no_cell asset_{{asset.order}}">
+							<div class='btn-group asset_{{asset.order}}_group'>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">Yes</button>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">No</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="question5" class="question_cell">
+							Are there 2 cables and 1 stylus connected to the Pin Pad? 
+						</td>
+						<td ng-repeat='asset in assets' class="yes_no_cell asset_{{asset.order}}">
+							<div class='btn-group asset_{{asset.order}}_group'>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">Yes</button>
+								<button class="btn btn-default btn-md asset_{{asset.order}}" ng-click="lightChoice($event)">No</button>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td id="question6" class="question_cell">
+							Is the total number of Pin Pad devices 
+							in use the same as the number of devices listed above? 
+							If not, please explain 
+						</td>
+						<td colspan="{{assetNum}}" class="comment_cell">
+							<textarea id="comments1" class="input_commnet" required=""></textarea>
+							
+						</td>
+					</tr>
+					<tr>
+						<td id="question7" class="question_cell">
+							How many miStore devices are in use?
+						</td>
+						<td colspan="{{assetNum}}" class="comment_cell">
+							<textarea id="comments2" class="input_commnet" required=""></textarea>
+							
+							
+						</td>
+					</tr>
+					<tr>
+						<td id="question8" class="question_cell">
+							Examine the general condition of the miStore devices.  
+							Is anything wrong with any of the devices?  
+						</td>
+						<td colspan="{{assetNum}}"  class="comment_cell">
+							<textarea id="comments3" class="input_commnet" required=""></textarea>
+							
+						</td>
+					</tr>
+					<tr>
+						<td id="question9" class="question_cell">
+							If you have answered "No" to any of the verifications 
+							above, please explain: 
+						</td>
+						<td colspan="{{assetNum}}" class="comment_cell">
+							<textarea id="comments4" class="input_commnet"></textarea>
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!-- Modal -->
+		  <div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+
+			 
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <button id="close_modal" type="button" class="close btn-default" data-dismiss="modal">X</button>
+				  <h3 class="modal-title">Please enter information below</h3>
+				  
+				</div>
+				<div class="modal-body">
+				  <h4>Enter Name</h4>
+				  <input id="name_input" class="form-control" required=""></input>	
+				  <h4>Enter Position</h4>
+				  <input id="pos_input" class="form-control" required=""></input>
+				</div>
+				<div class="modal-footer">
+				  <button id="submit_work" type="button" class="btn btn-success btn-lg" >
+					  Submit
+				  </button>
+				</div>
+			  </div>
+
+			</div>
+		  </div>
+			
+			
+			<div class="text-center">
+			
+				 <button  type="submit" class="submitButton btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Done</button>
+				
+			</div>
+		</div>
+		
+	</body>
+</j:jelly>]]></html>
+        <name>pinpad_monthly_survey</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>sebgar01</sys_created_by>
+        <sys_created_on>2016-07-01 19:56:59</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>114a856a4f1822803e3dee6d0210c767</sys_id>
+        <sys_mod_count>664</sys_mod_count>
+        <sys_name>pinpad_monthly_survey</sys_name>
+        <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+        <sys_update_name>sys_ui_page_114a856a4f1822803e3dee6d0210c767</sys_update_name>
+        <sys_updated_by>sebgar01</sys_updated_by>
+        <sys_updated_on>2017-01-19 18:58:36</sys_updated_on>
+    </sys_ui_page>
+</record_update>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="sys_import_set_row" label="Imp Tmpl X Kasp It Survey Annual Policy User" max_length="40" name="u_imp_tmpl_x_kasp_it_survey_annual_policy_user" type="collection">
+        <element attributes="import_attribute_name=user,edge_encryption_enabled=true" label="user" max_length="40" name="u_user" type="string"/>
+    </element>
+</database>

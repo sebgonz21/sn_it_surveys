@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="PinPad Survey Header" max_length="40" name="x_kasp_it_survey_pinpad_survey_header" type="collection">
+        <element label="Date Completed" max_length="40" name="date_completed" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" label="Name" max_length="100" name="name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Position" max_length="100" name="position" type="string"/>
+        <element label="Store" max_length="32" name="store" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="store"/>
+        </index>
+    </element>
+</database>

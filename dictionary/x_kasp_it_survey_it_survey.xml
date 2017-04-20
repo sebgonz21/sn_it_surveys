@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="IT Survey" max_length="40" name="x_kasp_it_survey_it_survey" type="collection">
+        <element label="Comments" max_length="1000" name="comments" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Corporate Applications Experience" max_length="40" name="corporate_applications_experience" type="string">
+            <choice>
+                <element label="Better" sequence="0" value="Better"/>
+                <element label="Same" sequence="1" value="Same"/>
+                <element label="Worse" sequence="2" value="Worse"/>
+            </choice>
+        </element>
+        <element label="Corporate Applications Rating" max_length="40" name="corporate_applications_rating" type="integer"/>
+        <element choice="1" label="Email Experience" max_length="40" name="email_experience" type="choice">
+            <choice>
+                <element label="Worse" sequence="0" value="Worse"/>
+                <element label="Same" sequence="1" value="Same"/>
+                <element label="Better" sequence="2" value="Better"/>
+            </choice>
+        </element>
+        <element label="Email Rating" max_length="40" name="email_rating" type="integer"/>
+        <element attributes="edge_encryption_enabled=true" label="Equipment Move Comments" max_length="1000" name="equipment_move_comments" type="string"/>
+        <element label="Equipment Move Rating" max_length="40" name="equipment_move_rating" type="integer"/>
+        <element choice="1" label="File Experience" max_length="40" name="file_experience" type="choice">
+            <choice>
+                <element label="Worse" sequence="0" value="Worse"/>
+                <element label="Same" sequence="1" value="Same"/>
+                <element label="Better" sequence="2" value="Better"/>
+            </choice>
+        </element>
+        <element label="File Rating" max_length="40" name="file_rating" type="integer"/>
+        <element label="Interactions" max_length="1000" name="interactions" type="string"/>
+        <element choice="1" label="Internet Browsing Experience" max_length="40" name="internet_browsing_experience" type="choice">
+            <choice>
+                <element label="Worse" sequence="0" value="Worse"/>
+                <element label="Same" sequence="1" value="Same"/>
+                <element label="Better" sequence="2" value="Better"/>
+            </choice>
+        </element>
+        <element label="Internet Browsing Rating" max_length="40" name="internet_browsing_rating" type="integer"/>
+        <element default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Printing Experience" max_length="40" name="printing_experience" type="string">
+            <choice>
+                <element label="Better" sequence="0" value="Better"/>
+                <element label="Same" sequence="1" value="Same"/>
+                <element label="Worse" sequence="2" value="Worse"/>
+            </choice>
+        </element>
+        <element label="Printing Rating" max_length="40" name="printing_rating" type="integer"/>
+        <element label="Support Rating" max_length="40" name="support_rating" type="integer"/>
+        <element label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

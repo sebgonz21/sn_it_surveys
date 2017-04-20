@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="PinPad Survey Questions" max_length="40" name="x_kasp_it_survey_pinpad_survey_questions" type="collection">
+        <element label="Question" max_length="1000" name="question" type="string"/>
+    </element>
+</database>

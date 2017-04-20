@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Annual Policy User" max_length="40" name="x_kasp_it_survey_annual_policy_user" type="collection">
+        <element label="Acknowledged" max_length="40" name="acknowledged" type="boolean"/>
+        <element label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="user"/>
+        </index>
+    </element>
+</database>

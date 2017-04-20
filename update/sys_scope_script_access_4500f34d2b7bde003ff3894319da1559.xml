@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_scope_script_access">
+    <sys_scope_script_access action="INSERT_OR_UPDATE">
+        <example_stack_trace>Default-thread-10
+	com.glide.sys.fencing.dependency.ScopeAccessProvider$ScopeAccessCache.getCurrentStackTrace(ScopeAccessProvider.java:231)
+	com.glide.sys.fencing.dependency.ScopeAccessProvider$ScopeAccessCache.record(ScopeAccessProvider.java:200)
+	com.glide.sys.fencing.dependency.ScopeAccessProvider$ScopeAccessCache.access$100(ScopeAccessProvider.java:80)
+	com.glide.sys.fencing.dependency.ScopeAccessProvider.recordAccess(ScopeAccessProvider.java:63)
+	com.glide.sys.fencing.dependency.ScopeAccessRecorder.record(ScopeAccessRecorder.java:13)
+	com.glide.script.system.ASystemInclude.recordCrossScopeAccess(ASystemInclude.java:123)
+	com.glide.script.system.ASystemInclude.include(ASystemInclude.java:106)
+	com.glide.script.AGlideRhinoScopeHandler.isScriptInclude(AGlideRhinoScopeHandler.java:43)
+	com.glide.script.GlideRhinoScopeHandler.found(GlideRhinoScopeHandler.java:24)
+	com.glide.script.ARhinoScope.get(ARhinoScope.java:75)
+	com.glide.script.RhinoScope.get(RhinoScope.java:51)
+	org.mozilla.javascript.ScriptableObject.getProperty(ScriptableObject.java:1478)
+	org.mozilla.javascript.Context.newObject(Context.java:1104)
+	com.glide.script.RhinoObject.&lt;init&gt;(RhinoObject.java:57)
+	com.glide.script.GlideRhinoObject.&lt;init&gt;(GlideRhinoObject.java:44)
+	com.glide.ui.SysList.getListFromUI(SysList.java:532)
+	com.glide.ui.SysList.getUserListFromUI(SysList.java:522)
+	com.glide.ui.SysList.getListFromUI(SysList.java:491)
+	com.glide.ui.SysList.getListRecords(SysList.java:455)
+	com.glide.ui.SysList.getListColumns(SysList.java:333)
+	com.glide.ui.list.TableDataProcessor.getViewFields(TableDataProcessor.java:46)
+	com.glide.ui.list.TableDataProcessor.getFields(TableDataProcessor.java:35)
+	com.glide.ui.list.TableDataService.getResponseBody(TableDataService.java:177)
+	com.glide.ui.list.ListInitializeService.retrieveListData(ListInitializeService.java:51)
+	sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	java.lang.reflect.Method.invoke(Method.java:597)
+	com.glide.rest.handler.impl.ServiceHandlerImpl.invokeService(ServiceHandlerImpl.java:41)
+	com.glide.rest.processors.RESTAPIProcessor.process(RESTAPIProcessor.java:217)
+	com.glide.processors.AProcessor.runProcessor(AProcessor.java:409)
+	com.glide.processors.AProcessor.processTransaction(AProcessor.java:183)
+	com.glide.processors.ProcessorRegistry.process(ProcessorRegistry.java:165)
+	com.glide.ui.GlideServletTransaction.process(GlideServletTransaction.java:32)
+	com.glide.sys.ServletTransaction.run(ServletTransaction.java:34)
+	java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+	java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+	java.lang.Thread.run(Thread.java:682)
+</example_stack_trace>
+        <script_name>SysUserList</script_name>
+        <source_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</source_scope>
+        <sys_class_name>sys_scope_script_access</sys_class_name>
+        <sys_created_by>sebgar01</sys_created_by>
+        <sys_created_on>2016-06-02 19:38:24</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>4500f34d2b7bde003ff3894319da1559</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SysUserList</sys_name>
+        <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+        <sys_update_name>sys_scope_script_access_4500f34d2b7bde003ff3894319da1559</sys_update_name>
+        <sys_updated_by>sebgar01</sys_updated_by>
+        <sys_updated_on>2016-06-02 19:38:24</sys_updated_on>
+        <target_scope display_value="Global">global</target_scope>
+    </sys_scope_script_access>
+</record_update>

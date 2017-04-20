@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Surveys" max_length="40" name="x_kasp_it_survey_surveys" type="collection">
+        <element label="Link" max_length="1024" name="link" type="url"/>
+        <element display="true" label="Name" max_length="40" name="name" type="string"/>
+    </element>
+</database>

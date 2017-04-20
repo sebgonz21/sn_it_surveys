@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[var get = "https://katespade.service-now.com/api/now/table/x_kasp_it_survey_annual_policy_user?sysparm_query=user%3D";
+var patch = "https://katespade.service-now.com/api/now/table/x_kasp_it_survey_annual_policy_user/";
+var post = "https://katespade.service-now.com/api/now/table/x_kasp_it_survey_annual_policy_user";
+var userExists;
+var ready = false;
+$( document ).ready(function() {
+	
+	(function(){
+		get += g_user.userID+"&sysparm_limit=1";
+		
+		console.log('>>>>>>>>>>>>'+get);
+		var client = new XMLHttpRequest();
+		client.onreadystatechange = function() {
+			if (client.readyState == 4 && client.status == 200)
+				getReponse(client.responseText);
+		};
+		client.open("GET", get, true); // true for asynchronous
+		
+		client.setRequestHeader('Accept','application/json');
+		client.setRequestHeader('Content-Type','application/json');
+		client.setRequestHeader('X-UserToken', window.g_ck.toString());
+		
+		client.send();
+		
+		
+	})();
+	
+	
+	function getReponse(response){
+		
+		console.log(response);
+		var obj = JSON.parse(response);
+		
+		
+		if(obj.result.length == 0){
+			userExists = false;
+		}else{ userExists = true;}
+		
+		if(userExists){
+			console.log('>>>>>>>>>>>>'+obj.result[0].sys_id);
+			patch += obj.result[0].sys_id;
+		}
+		
+		
+		ready = true;
+	}
+	
+});
+
+function submit(){
+	
+	if(ready == false){
+		return;
+	}
+	if(checkMandatoryFields() == false){
+		return;
+	}
+	
+	var info;
+	if(userExists){
+		info =  {
+			acknowledged:'true'
+		};
+	}else{
+		info ={
+			user:""+g_user.userID,
+			acknowledged:'true'
+		};
+	}
+	
+	
+	sendSumbition(info);
+	
+}
+
+function checkMandatoryFields(){
+	
+	return ($('#checkbox').is(":checked") == true);
+}
+
+function sendSumbition(requestBody){
+	
+	var client=new XMLHttpRequest();
+	
+	if(userExists){
+		client.open("PATCH",patch);
+	}else{
+		client.open("POST",post);
+	}
+	
+	client.setRequestHeader('Accept','application/json');
+	client.setRequestHeader('Content-Type','application/json');
+	client.setRequestHeader('X-UserToken', window.g_ck.toString());
+	
+	client.onreadystatechange = function() {
+		if(this.readyState ==  this.DONE) {
+			
+		}
+	};
+	
+	client.send(JSON.stringify(requestBody));
+	
+	gel('column').innerHTML="<p id='thanks'>Thank you!,<br/>we appreciate your feedback.</p>";
+	
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_kasp_it_survey_annual_policy.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	
+	<head>
+		<g:requires name="my_jquery_min.jsdbx"/>
+		<g:requires name="my_jquery_ui_min.jsdbx"/>
+		<style>
+			.box{
+				border-top-width: 20px;
+				border-style:solid;
+				border-color:#12950D;
+				border-radius:10px;
+				padding-bottom: 20px;
+				width:50%;
+				margin-left:25%;
+				margin-right:40%;
+				margin-bottom:10px;
+				text-align:left;
+			}
+			
+			.cater{
+				
+				font-family:"Calibri";
+				font-size:18px;
+				font-weight:bold;
+				margin:0px;
+			}
+
+			.list_acks{
+				margin-left: 20px;
+				margin-top: 10px;
+				font-weight: bold;
+			}
+			
+			#title{
+				font-family:"Calibri";
+				text-align:center;
+				
+			}
+			#checkbox_div{
+				text-align:center;
+			}
+			
+			label {
+				display: block;
+				padding-left: 15px;
+				text-indent: -15px;
+				font-weight:bold;
+			}
+			#checkbox {
+				width: 20px;
+				height: 20px;
+				padding: 0;
+				margin:0;
+				vertical-align: bottom;
+				position: relative;
+				top: -1px;
+				
+			}
+			
+			#column{
+				text-align:center;
+			}
+			
+			
+			#thanks{
+				margin-top: 20%;
+				font-family:"Calibri";
+				font-size:20px;
+				font-style: italic;
+				padding-left:30px;
+			}
+			
+		</style>
+	</head>
+	
+	<header class='col-sm-12'>
+		<h1 id='title'>
+			<img id="logo" src="KateLogo.jpg"/><br/>
+			<p id="subtitle">Annual Policy Acknowledgement</p>
+			
+		</h1>
+		
+	</header>	
+	<div data-role="page" id='column' >
+			
+		<div id='first' class='col-xs-12 col-sm-12 col-md-12 box container-fluid'>
+			
+			<div>
+				<p class="cater">
+					By checking the box below, I acknowledge that I have read, understood and reviewed the following 4 documents with the team:
+				</p>
+				<div class="list_acks">
+					<p>1.	KSC Electronic Communication and System Security Policy</p>
+					<p>2.	KSC Credit Card Processing and Handling Security Policy</p>
+					<p>3.	KSC Blogging $[AMP] Social Media Policy</p>
+					<p>4.	KSC Stranger Awareness</p>
+
+				</div>
+				<div id='checkbox_div'>
+					<label><input id='checkbox' type="checkbox" />$[SP] Check To Acknowledge</label>
+					
+				</div>
+			</div>						
+		</div>
+		<button class='btn btn-lg btn-success' onclick="submit()">Submit</button>
+	</div>
+</j:jelly>]]></html>
+        <name>annual_policy</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>sebgar01</sys_created_by>
+        <sys_created_on>2016-06-07 18:43:58</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>bd63ddfa4f7f1a003e3dee6d0210c7ef</sys_id>
+        <sys_mod_count>96</sys_mod_count>
+        <sys_name>annual_policy</sys_name>
+        <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+        <sys_update_name>sys_ui_page_bd63ddfa4f7f1a003e3dee6d0210c7ef</sys_update_name>
+        <sys_updated_by>sebgar01</sys_updated_by>
+        <sys_updated_on>2016-06-07 22:35:20</sys_updated_on>
+    </sys_ui_page>
+</record_update>

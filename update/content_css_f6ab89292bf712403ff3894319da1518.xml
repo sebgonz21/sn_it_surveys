@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="content_css">
+    <content_css action="INSERT_OR_UPDATE">
+        <name>Mobile Styles</name>
+        <style>@media only screen and (min-width:320px),&#13;
+             only screen and (min-width:481px),&#13;
+             only screen and (min-width: 641px){	&#13;
+				&#13;
+	#column{&#13;
+		text-align:center;&#13;
+	}&#13;
+		&#13;
+        #title{&#13;
+		font-family:"Calibri";&#13;
+		text-align:center;&#13;
+	}&#13;
+		&#13;
+	.subtitle{&#13;
+		font-style: italic;&#13;
+	}		&#13;
+	#undertitle{&#13;
+		font-size: 16px;&#13;
+                font-style: italic;&#13;
+	}&#13;
+			&#13;
+	.cater{&#13;
+		margin-top:30px;&#13;
+		font-family:"Calibri";&#13;
+		font-size:18px;&#13;
+		font-weight:bold;&#13;
+	}&#13;
+		&#13;
+        .box{&#13;
+		border-top-width: 20px;&#13;
+		border-style:solid;&#13;
+		border-color:#12950D;&#13;
+		border-radius:10px;&#13;
+		padding-bottom: 20px;&#13;
+		width:100%;&#13;
+		margin-bottom:10px;		&#13;
+	}&#13;
+			&#13;
+	.choiceButton{&#13;
+		border-radius:10px;&#13;
+		background-color:white;&#13;
+		color:black;&#13;
+		height: 3em;&#13;
+		margin: 0 0 0 0;&#13;
+	}&#13;
+	&#13;
+       .text_area{&#13;
+		border:0.5px solid;&#13;
+		text-align:left;&#13;
+		overflow:auto;&#13;
+		margin: 0 auto;&#13;
+		height:80px;&#13;
+		margin-left:25%;&#13;
+		margin-right:25%;&#13;
+	}&#13;
+			&#13;
+	#submit{&#13;
+		height: 50px;&#13;
+		width: 100px;&#13;
+		border-radius: 5px;&#13;
+		background-color:#5cb85c;&#13;
+		color:white;&#13;
+	}&#13;
+&#13;
+        .scale{&#13;
+               position:relative;&#13;
+               &#13;
+        }&#13;
+&#13;
+        .worst{ position:absolute; }&#13;
+        .best{ position:absolute; }&#13;
+&#13;
+         @media only screen and (min-width:320px){&#13;
+               .worst{ top:40px; left:20px;}&#13;
+               .best{ top:40px; right:20px;}&#13;
+         }&#13;
+&#13;
+         @media only screen and (min-width:481px){&#13;
+               .worst{ top:10px; left:50px;}&#13;
+               .best{ top:10px; right:50px;}&#13;
+         }&#13;
+&#13;
+         @media only screen and (min-width:550px){&#13;
+               .worst{ top:10px; left:80px;}&#13;
+               .best{ top:10px; right:80px;}&#13;
+         }&#13;
+&#13;
+         @media only screen and (min-width: 641px){&#13;
+               .worst{ top:10px; left:120px;}&#13;
+               .best{ top:10px; right:120px;}&#13;
+         }&#13;
+&#13;
+         #support{&#13;
+               display:none;&#13;
+         }&#13;
+         .alert{&#13;
+                display:none;&#13;
+                background-color:#a94442;&#13;
+                border-color: white;&#13;
+                color: white;&#13;
+         }     &#13;
+}</style>
+        <sys_class_name>content_css</sys_class_name>
+        <sys_created_by>sebgar01</sys_created_by>
+        <sys_created_on>2016-06-03 20:57:19</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>f6ab89292bf712403ff3894319da1518</sys_id>
+        <sys_mod_count>36</sys_mod_count>
+        <sys_name>Mobile Styles</sys_name>
+        <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+        <sys_update_name>content_css_f6ab89292bf712403ff3894319da1518</sys_update_name>
+        <sys_updated_by>sebgar01</sys_updated_by>
+        <sys_updated_on>2016-06-06 21:59:50</sys_updated_on>
+        <type>local</type>
+        <url/>
+    </content_css>
+</record_update>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="sys_choice" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>name</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>7cf83ae75c5c1500b4e5e28b214fe9c3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>element</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>fcf83ae75c5c1500b4e5e28b214fe9c3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>language</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>70f83ae75c5c1500b4e5e28b214fe9c4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>value</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>f0f83ae75c5c1500b4e5e28b214fe9c4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>label</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>74f83ae75c5c1500b4e5e28b214fe9c4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>hint</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>f4f83ae75c5c1500b4e5e28b214fe9c4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>inactive</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>78f83ae75c5c1500b4e5e28b214fe9c4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sequence</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>7</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>f8f83ae75c5c1500b4e5e28b214fe9c4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sys_created_on</element>
+            <list_id display_value="sys_choice" element="NULL" name="sys_choice" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">7cf83ae75c5c1500b4e5e28b214fe9c2</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>8</position>
+            <sum>false</sum>
+            <sys_created_by>chutau01</sys_created_by>
+            <sys_created_on>2013-10-15 01:38:15</sys_created_on>
+            <sys_id>7cf83ae75c5c1500b4e5e28b214fe9c4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>chutau01</sys_updated_by>
+            <sys_updated_on>2013-10-15 01:38:15</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>sys_choice</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-08-08 14:56:43</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>f302b7e62b8d62043ff3894319da15c1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sys_choice</sys_name>
+            <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+            <sys_update_name>sys_ui_list_sys_choice_null</sys_update_name>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-08-08 14:56:43</sys_updated_on>
+            <sys_user display_value="Sebastian Gonzalez-Garcia">96e7c5caf58e0100649946d7569884b1</sys_user>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

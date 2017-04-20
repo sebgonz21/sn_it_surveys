@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[$('html, body').animate({
+		scrollTop: $('#logo').offset()
+}, 500);
+
+$('.choiceButton').click(function(){
+	
+	$(this).css('background-color','#83bfff').css('color','white').addClass('active')
+	.siblings().css('background-color','white').css('color','black').removeClass('active');
+	
+});
+
+$('.adjective').click(function(){
+	
+	if($(this).hasClass('active')){
+		$(this).css('background-color','white').css('color','black').removeClass('active');
+	}else{
+		$(this).css('background-color','#12950D').css('color','white').addClass('active');
+	}
+	
+});
+
+function showOps(){
+	
+	var optionsDiv = gel('support');
+	optionsDiv.style.display = 'block';
+	
+}
+
+function hideOps(){
+	
+	var optionsDiv = gel('support');
+	optionsDiv.style.display = 'none';
+	
+}
+
+function submit(){
+	
+	
+	
+	if(checkMandatoryFields() == false){
+		return;
+	}
+	var info = {};
+	var parent ={};
+	var field ="";
+	var value ="";
+	
+	$('.active').each(function(i,obj){
+		
+		parent = $(this).parent();
+		field = "" + parent.attr("name");
+		value = "" +$(this).html();
+		
+		if(parent.attr("name") =="interactions"){
+			console.log($(this).attr('class'));
+			if(info.hasOwnProperty(field)){
+				info[field] += "," + value;
+			}else{
+				info[field] = value;
+			}
+			
+		}else{
+			info[field] = value;
+		}
+		
+	});
+	var comment_id;
+	$('.comments').each(function(i,obj){
+		
+		comment_id = obj.id;
+		info[comment_id] = $(this).text();
+	});
+	/*
+	info["comments"] = $('#comments').html();
+	if($('#yesBtn').hasClass('active')){
+		info['interactions'] = $('#interaction_comments').html();
+	}
+	*/
+	info["user"] = g_user.userID;
+	console.log(info);
+	console.log(g_user.userID);
+	sendSumbition(info);
+ 	
+}
+
+function checkMandatoryFields(){
+	
+	var hasActive;
+	
+	$('.btn-group').each(function(i,obj){
+		
+		hasActive = false;
+		if($(obj).attr('name') == "support_rating"){
+			if($('#noBtn').hasClass('active')){
+				console.log("No active");
+				hasActive = true;
+				return false;
+			}
+		}
+		
+		$(obj).children('.choiceButton').each(function(j,oj){
+			console.log("here");
+			if($(oj).hasClass('active')){
+				hasActive = true;
+			}
+		});
+		
+		if(hasActive == false){
+			var div = $(obj).parents('div.box');
+			
+			$('html, body').animate({
+				scrollTop: $(div).offset().top
+			}, 300);
+			
+			
+			$(div).children('.alert').delay(300).fadeIn( 400 ).delay(5000).fadeOut( 400 );
+			
+			return false;
+		}
+	});
+	return hasActive;
+}
+
+function sendSumbition(requestBody){
+	
+	var client=new XMLHttpRequest();
+	client.open("post","https://katespade.service-now.com/api/now/table/x_kasp_it_survey_it_survey");
+	
+	client.setRequestHeader('Accept','application/json');
+	client.setRequestHeader('Content-Type','application/json');
+	client.setRequestHeader('X-UserToken', window.g_ck.toString());
+	
+	client.onreadystatechange = function() {
+		if(this.readyState ==  this.DONE) {
+			
+		}
+	};
+	
+	client.send(JSON.stringify(requestBody));
+	
+	gel('it_survey').innerHTML = "";	
+	gel('undertitle').innerHTML = "";
+
+	gel('column').innerHTML="<p id='thanks'>Thank you for taking the IT Survey,<br/>we appreciate your feedback!</p>";
+	
+	zoomOut();
+	
+	$('html, body').animate({
+		scrollTop: $('#logo').offset().top
+	}, 500);
+}
+
+
+function zoomOut() {
+    $(document.body).css({
+        zoom : '',
+        position : '',
+        left: "",
+        top: "",
+        "-moz-transform" : "",
+        width : ''  
+    });
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_kasp_it_survey_it survey home.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+		<!-- Mobile Styles -->
+		<link href='f6ab89292bf712403ff3894319da1518.cssdbx' rel='stylesheet' type='text/css'/>
+	
+		<!-- Desktop Styles -->
+		<link href='74cb306d2bb712403ff3894319da156b.cssdbx' rel='stylesheet' type='text/css'/>
+		
+		<g:requires name="my_jquery_min.jsdbx"/>
+		<g:requires name="my_jquery_ui_min.jsdbx"/>
+	</head>
+	
+	<header class='col-sm-12'>
+		<h1 id='title'><img id="logo" src="KateLogo.jpg"/><br/><p id="it_survey">Informtion Technology Survey</p>
+			<p id="undertitle">This survey is related to the services that have been provided by the Information Technology team during and following the move to Regent Street.</p>
+		</h1>
+		
+	</header>	
+	
+	<div data-role="page" id='column' >
+			
+		<div id='first' class='col-xs-12 col-sm-12 col-md-12 box container-fluid'>
+			<div class="alert alert-danger">
+				<strong>Oops!</strong> You forgot to answer this question
+			</div>
+			<div>
+				<p class="cater">Computer equipment move from Covent Garden to Regent Street</p>
+			</div>
+					
+			<p class="question">When thinking about the team that actually moved your computer $[AMP] phone equipment to Regent Street, how would you rate your overall experience with that team?</p>
+					
+			<div class="scale">
+				<div class="worst">Worst$[SP]</div>
+				<div name="equipment_move_rating" class="btn-group">					
+					<button type="submit" class="btn btn-md btn-default choiceButton">1</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">2</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">3</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">4</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">5</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">6</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">7</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">8</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">9</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">10</button>					
+				</div>
+				<div class="best">Best$[SP]</div>
+			</div>
+			<br/>
+			<div>
+				<p class="additional">Additional Comments about the equipment move</p>
+				<div id="equipment_move_comments" class="text_area comments" contenteditable="true" ></div>		
+			</div>
+		</div>
+			
+		<div class='col-xs-12 col-sm-12 col-md-12 box'>
+			<div class="alert alert-danger">
+				<strong>Oops!</strong> You forgot to answer this question
+			</div>
+			<div>
+				<p class="cater">Internet Experience</p>
+				<p class="subtitle">(Performance - browsing, launching websites, watching videos)</p>
+			</div>
+
+			<p class="question">How would you rate your Internet experience compared to the Covent Garden Office?
+				<div name="internet_browsing_experience" class="btn-group">
+					<button type="submit" class="btn btn-md btn-default choiceButton">Worse</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Same</button>						
+					<button type="submit" class="btn btn-md btn-default choiceButton">Better</button>
+				</div>
+			</p>
+					
+			<br/>
+
+			<p class="question" >How would you rate your overall Internet experience?</p>
+			
+			<div class="scale">
+				<div class="worst">Worst$[SP]</div>
+				<div name="internet_browsing_rating" class="btn-group">					
+					<button type="submit" class="btn btn-md btn-default choiceButton">1</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">2</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">3</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">4</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">5</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">6</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">7</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">8</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">9</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">10</button>					
+				</div>
+				<div class="best">Best$[SP]</div>
+			</div>
+		</div>
+			
+		<div class='col-xs-12 col-sm-12 col-md-12 box'>
+			<div class="alert alert-danger">
+				<strong>Oops!</strong> You forgot to answer this question
+			</div>
+			<div>
+				<p class="cater">Email </p>
+				<p class="subtitle">(Sending/Receiving email, opening attachments)</p>
+			</div>
+
+			<p class="question" >How would you rate your experience compared to the Covent Garden Office?
+				<div name="email_experience" class="btn-group">						
+						
+					<button type="submit" class="btn btn-md btn-default choiceButton">Worse</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Same</button>	
+					<button type="submit" class="btn btn-md btn-default choiceButton">Better</button>						
+						
+				</div>
+			</p>
+			<br/>
+			<p class="question" >How would you rate your overall experience?</p>
+					
+			<div class="scale">
+				<div class="worst">Worst$[SP]</div>
+				<div name="email_rating" class="btn-group">					
+					<button type="submit" class="btn btn-md btn-default choiceButton">1</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">2</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">3</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">4</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">5</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">6</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">7</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">8</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">9</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">10</button>					
+				</div>
+				<div class="best">Best$[SP]</div>
+			</div>	
+		</div>
+			
+		<div class='col-xs-12 col-sm-12 col-md-12 box'>
+			<div class="alert alert-danger">
+				<strong>Oops!</strong> You forgot to answer this question
+			</div>
+			<div>
+				<p class="cater">File Services (P: Drive, G: Drive, etc…) </p>
+				<p class="subtitle">(Opening, updating, saving files)</p>
+			</div>
+				
+			<p class="question" >How would you rate your experience compared to the Covent Garden Office?
+				<div name="file_experience" class="btn-group">
+					<button type="submit" class="btn btn-md btn-default choiceButton">Worse</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Same</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Better</button>
+				</div>
+			</p>
+			<br/>
+			<p class="question" >How would you rate your overall experience?</p>
+					
+			<div class="scale">
+				<div class="worst">Worst$[SP]</div>
+				<div name="file_rating" class="btn-group">					
+					<button type="submit" class="btn btn-md btn-default choiceButton">1</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">2</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">3</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">4</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">5</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">6</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">7</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">8</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">9</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">10</button>					
+				</div>
+				<div class="best">Best$[SP]</div>
+			</div>	
+			
+		</div>
+			
+		<div class='col-xs-12 col-sm-12 col-md-12 box'>
+			<div class="alert alert-danger">
+				<strong>Oops!</strong> You forgot to answer this question
+			</div>
+			<div>
+				<p class="cater">Corporate Applications</p>
+				<p class="subtitle">(Sewn, Rams, JDE, RBI, Service-Now, etc...)</p>
+			</div>
+				
+			<p class="question" >How would you rate your experience accessing applications comapared to the Covent Garden office?
+				<div name="corporate_applications_experience" class="btn-group">
+					<button type="submit" class="btn btn-md btn-default choiceButton">Worse</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Same</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Better</button>
+				</div>
+			</p>
+			<br/>
+			
+			<p class="question" >How would you rate your overall experience?</p>
+			<div class="scale">
+				
+				<div class="worst">Worst$[SP]</div>
+				<div name="corporate_applications_rating" class="btn-group">					
+					<button type="submit" class="btn btn-md btn-default choiceButton">1</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">2</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">3</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">4</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">5</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">6</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">7</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">8</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">9</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">10</button>					
+				</div>
+				<div class="best">Best$[SP]</div>
+			</div>	
+		</div>
+						
+		<div class='col-xs-12 col-sm-12 col-md-12 box'>
+			<div class="alert alert-danger">
+				<strong>Oops!</strong> You forgot to answer this question
+			</div>
+			<div>
+				<p class="cater">Printing</p> 	
+				
+			</div>
+			
+			<p class="question" >As of April 19th, how would you rate your printing experience comapared to the Covent Garden office?
+				<div name="printing_experience" class="btn-group">
+					<button type="submit" class="btn btn-md btn-default choiceButton">Worse</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Same</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">Better</button>
+				</div>
+			</p>
+			
+			<br/>
+			
+			<p class="question" >How would you rate your overall printing experience? </p>
+			<div class="scale">
+				<div class="worst">Worst$[SP]</div>
+				<div name="printing_rating" class="btn-group">					
+					<button type="submit" class="btn btn-md btn-default choiceButton">1</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">2</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">3</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">4</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">5</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">6</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">7</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">8</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">9</button>
+					<button type="submit" class="btn btn-md btn-default choiceButton">10</button>					
+				</div>
+				<div class="best">Best$[SP]</div>
+			</div>	
+				
+		</div>
+			
+		<div class='col-xs-12 col-sm-12 col-md-12 box'>
+			<div class="alert alert-danger">
+				<strong>Oops!</strong> You forgot to answer this question
+			</div>
+			<p class='cater'>Did you interact with the team who performed the move and provided support after the move?
+				<div name="interaction_yes_no">
+					<button id='yesBtn' class='btn btn-md btn-default choiceButton' onclick='showOps()'>Yes</button>
+					<button id='noBtn' class='btn btn-md btn-default choiceButton' onclick='hideOps()'>No</button>
+				</div>
+			</p>		
+			<div id="support">
+				<p class="question" >How would you rate the team overall?</p>
+
+				<div class="scale">	
+
+					<div class="worst">Worst$[SP]</div>
+					<div name="support_rating" class="btn-group">					
+						<button type="submit" class="btn btn-md btn-default choiceButton">1</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">2</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">3</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">4</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">5</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">6</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">7</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">8</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">9</button>
+						<button type="submit" class="btn btn-md btn-default choiceButton">10</button>					
+					</div>
+					<div class="best">Best$[SP]</div>
+
+				</div>
+
+				<br/>
+				<p class='additional' >Comments you would like to share with the team</p>
+
+				<div  id="interactions" class="text_area comments" contenteditable="true" ></div>
+			</div>
+		</div>
+							
+		<div name="comments" class='col-xs-12 col-sm-12 col-md-12'>
+			<div><p class='cater'>Any other comments about your experience?</p></div>$[SP]
+			<div id="comments" class="text_area comments" contenteditable="true" ></div>
+		</div>
+		<br/>
+		
+		<div class='col-xs-12 col-sm-12 col-md-12'>	
+			<button id="submit" type='submit' class='btn btn-success btn-lg' onclick='submit()'>Submit</button>
+		</div>
+	</div>
+		
+</j:jelly>]]></html>
+        <name>it survey home</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>sebgar01</sys_created_by>
+        <sys_created_on>2016-05-31 21:29:47</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>5cf535204f33d2003e3dee6d0210c74b</sys_id>
+        <sys_mod_count>242</sys_mod_count>
+        <sys_name>it survey home</sys_name>
+        <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+        <sys_update_name>sys_ui_page_5cf535204f33d2003e3dee6d0210c74b</sys_update_name>
+        <sys_updated_by>sebgar01</sys_updated_by>
+        <sys_updated_on>2016-06-30 15:25:42</sys_updated_on>
+    </sys_ui_page>
+</record_update>

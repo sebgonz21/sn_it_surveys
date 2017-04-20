@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_section caption="" section_id="f88ae1b64fff1a003e3dee6d0210c73c" sys_domain="global" table="u_imp_tmpl_x_kasp_it_survey_annual_policy_user" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>u_user</element>
+            <position>0</position>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-06-07 20:24:29</sys_created_on>
+            <sys_id>fc8ae1b64fff1a003e3dee6d0210c73c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="u_imp_tmpl_x_kasp_it_survey_annual_policy_user" sys_domain="global" view="Default view">f88ae1b64fff1a003e3dee6d0210c73c</sys_ui_section>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-06-07 20:24:29</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>template_import_log.message</element>
+            <position>1</position>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-06-07 20:24:29</sys_created_on>
+            <sys_id>308ae1b64fff1a003e3dee6d0210c73d</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="u_imp_tmpl_x_kasp_it_survey_annual_policy_user" sys_domain="global" view="Default view">f88ae1b64fff1a003e3dee6d0210c73c</sys_ui_section>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-06-07 20:24:29</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>u_imp_tmpl_x_kasp_it_survey_annual_policy_user</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-06-07 20:24:29</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_id>f88ae1b64fff1a003e3dee6d0210c73c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>u_imp_tmpl_x_kasp_it_survey_annual_policy_user</sys_name>
+            <sys_overrides display_value="">global</sys_overrides>
+            <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+            <sys_update_name>sys_ui_section_f88ae1b64fff1a003e3dee6d0210c73c</sys_update_name>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-06-07 20:24:29</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

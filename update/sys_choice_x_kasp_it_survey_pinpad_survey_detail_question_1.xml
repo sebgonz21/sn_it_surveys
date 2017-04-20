@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_choice action="INSERT_OR_UPDATE" field="question_1" table="x_kasp_it_survey_pinpad_survey_detail" version="3">
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>question_1</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Verify that the serial number printed on the label matches the serial number above.</label>
+            <language>en</language>
+            <name>x_kasp_it_survey_pinpad_survey_detail</name>
+            <sequence>0</sequence>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-08-04 14:01:12</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>bffe32dd2bc5aec03ff3894319da1510</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-08-04 14:01:12</sys_updated_on>
+            <value>Verify that the serial number printed on the label matches the serial number above.</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>question_1</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Examine the color and general condition of the devices: Look for additional marks or scratches, espe</label>
+            <language>en</language>
+            <name>x_kasp_it_survey_pinpad_survey_detail</name>
+            <sequence>1</sequence>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-08-04 14:01:12</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>f3fe32dd2bc5aec03ff3894319da1511</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-08-04 14:01:12</sys_updated_on>
+            <value>Examine the color and general condition of the devices: Look for additional marks or scratches, especially around the seams. Is anything wrong with the condition of the device.</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>question_1</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Manufacturer's security seal and labels are present, with no signs of peeling or tampering?</label>
+            <language>en</language>
+            <name>x_kasp_it_survey_pinpad_survey_detail</name>
+            <sequence>2</sequence>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-08-04 14:01:12</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>b7fe32dd2bc5aec03ff3894319da1511</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-08-04 14:01:12</sys_updated_on>
+            <value>Manufacturer's security seal and labels are present, with no signs of peeling or tampering?</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>question_1</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Connections to the Pinpad are using the same type and color of cables as described in the document, </label>
+            <language>en</language>
+            <name>x_kasp_it_survey_pinpad_survey_detail</name>
+            <sequence>3</sequence>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-08-04 14:01:12</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>7bfe32dd2bc5aec03ff3894319da1511</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-08-04 14:01:12</sys_updated_on>
+            <value>Connections to the Pinpad are using the same type and color of cables as described in the document, with no loose wires or broken connectors? No odd looking attachments?</value>
+        </sys_choice>
+        <sys_choice action="INSERT_OR_UPDATE">
+            <dependent_value/>
+            <element>question_1</element>
+            <hint/>
+            <inactive>false</inactive>
+            <label>Number of connections to the Pinpad.  Is it 3?</label>
+            <language>en</language>
+            <name>x_kasp_it_survey_pinpad_survey_detail</name>
+            <sequence>4</sequence>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-08-04 14:01:12</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_id>3ffe32dd2bc5aec03ff3894319da1511</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-08-04 14:01:12</sys_updated_on>
+            <value>Number of connections to the Pinpad.  Is it 3?</value>
+        </sys_choice>
+        <sys_choice_set action="INSERT_OR_UPDATE">
+            <element>question_1</element>
+            <name>x_kasp_it_survey_pinpad_survey_detail</name>
+            <sys_class_name>sys_choice_set</sys_class_name>
+            <sys_created_by>sebgar01</sys_created_by>
+            <sys_created_on>2016-08-04 14:01:12</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>73fe32dd2bc5aec03ff3894319da1511</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_name>question_1</sys_name>
+            <sys_package display_value="IT Survey" source="x_kasp_it_survey">4ae531204f33d2003e3dee6d0210c7ba</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="IT Survey">4ae531204f33d2003e3dee6d0210c7ba</sys_scope>
+            <sys_update_name>sys_choice_x_kasp_it_survey_pinpad_survey_detail_question_1</sys_update_name>
+            <sys_updated_by>sebgar01</sys_updated_by>
+            <sys_updated_on>2016-08-04 14:01:12</sys_updated_on>
+        </sys_choice_set>
+    </sys_choice>
+</record_update>
